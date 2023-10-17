@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.koylumuhendis.ecommerce.Commerce.model.User;
+import com.koylumuhendis.ecommerce.Commerce.dto.CreateUserRequest;
+import com.koylumuhendis.ecommerce.Commerce.dto.UpdateUserRequest;
+import com.koylumuhendis.ecommerce.Commerce.dto.UserDto;
 import com.koylumuhendis.ecommerce.Commerce.service.UserService;
 
 @RestController
@@ -26,23 +28,25 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<User>> getAllUsers(){
+	public ResponseEntity<List<UserDto>> getAllUsers(){
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
+	public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id){
 		return ResponseEntity.ok(userService.getUserById(id));
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest userRequest){
-		return ResponseEntity.created(userService.createUser(userRequest));
+	public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest userRequest){
+		return ResponseEntity.ok(userService.createUser(userRequest));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<User> updateUser(@RequestBody UpdateUserRequest updateUserRequest){
-		return ResponseEntity.ok(userService.updateUser(updateUserRequest));
+	public ResponseEntity<UserDto> updateUser(
+			@PathVariable Long id,
+			@RequestBody UpdateUserRequest updateUserRequest){
+		return ResponseEntity.ok(userService.updateUser(id,updateUserRequest));
 	}
 	
 	@DeleteMapping("/{id}")
