@@ -60,8 +60,4 @@ tasks.withType<Jar> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs += "-Xjsr305=strict"
-	}
-}
+
