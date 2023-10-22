@@ -10,17 +10,17 @@ import com.koylumuhendis.ecommerce.Commerce.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	User save(CreateUserRequest userRequest);
+	User save(User user);
 	
-	@Modifying
-	@Query("update user u set u.firstname=:firstName, u.lastname=:lastName, u.address=:address WHERE u.id=:id")
-	User updateUser(@Param("id")Long id,
-			@Param("firtname")String firstName,
-			@Param("lastname")String lastName,
-			@Param("address")String address);
-	
-	@Modifying
-	@Query("update user u set u.active=false where u.id=:id")
-	void deactiveUser(@Param("id")Long id);
+//	@Modifying
+//	@Query("update user u set u.firstname=:firstName, u.lastname=:lastName, u.address=:address WHERE u.id=:id")
+//	User updateUser(@Param("id")Long id,
+//			@Param("firtname")String firstName,
+//			@Param("lastname")String lastName,
+//			@Param("address")String address);
+//	
+//	@Modifying
+//	@Query("update user u set u.active=false where u.id=:id")
+//	void deactiveUser(@Param("id")Long id);
 
 }

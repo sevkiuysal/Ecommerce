@@ -37,14 +37,16 @@ public class UserService {
 		return userDtoConverter.convert(user);
 	}
 
-	public UserDto createUser(CreateUserRequest userRequest) {
-		return userDtoConverter.convert(userRepository.save(userRequest));
+	public UserDto createUser(CreateUserRequest createUserRequest) {
+		User user=new User(createUserRequest.getMail(),createUserRequest.getFirstname(),createUserRequest.getLastname(),createUserRequest.getAddress());
+		return userDtoConverter.convert(userRepository.save(user));
 	}
 
 
 	public UserDto updateUser(Long id,UpdateUserRequest updateUserRequest) {
-		User user=userRepository.updateUser(id, updateUserRequest.getFirstname(), updateUserRequest.getLastname(), updateUserRequest.getAddress());
-		return userDtoConverter.convert(user);
+//		User user=userRepository.updateUser(id, updateUserRequest.getFirstname(), updateUserRequest.getLastname(), updateUserRequest.getAddress());
+//		return userDtoConverter.convert(user);
+		return null;
 	}
 	
 	private User findById(Long id) {
@@ -61,7 +63,8 @@ public class UserService {
 
 
 	public void deactiveUser(Long id) {
-		userRepository.deactiveUser(id);
+//		userRepository.deactiveUser(id);
+		System.out.println("user deactive");
 		
 	}
 }
