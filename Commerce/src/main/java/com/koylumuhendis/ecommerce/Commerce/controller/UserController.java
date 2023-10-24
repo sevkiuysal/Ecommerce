@@ -27,12 +27,12 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-	@GetMapping
+	@GetMapping("/getAll")
 	public ResponseEntity<List<UserDto>> getAllUsers(){
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/getBy/{id}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id){
 		return ResponseEntity.ok(userService.getUserById(id));
 	}
@@ -42,23 +42,25 @@ public class UserController {
 		return ResponseEntity.ok(userService.createUser(userRequest));
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<UserDto> updateUser(
 			@PathVariable Long id,
 			@RequestBody UpdateUserRequest updateUserRequest){
-		return ResponseEntity.ok(userService.updateUser(id,updateUserRequest));
+		
+		userService.updateUser(id,updateUserRequest);
+		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id){
 		userService.deleteUser(id);
 		return ResponseEntity.ok().build();
 	}
-	
-	@PatchMapping("/{id}")
-	public ResponseEntity<Void> deactiveUser(@PathVariable("id") Long id){
-		userService.deactiveUser(id);
+	@PatchMapping("/deactivete/{id}")
+	public ResponseEntity<Void> deactiveteUser(@PathVariable("id") Long id){
+		userService.deactiveteUser(id);
 		return ResponseEntity.ok().build();
 	}
+
 
 }

@@ -16,11 +16,14 @@ public class User extends BaseEntity {
 	private String firstname;
 	private String lastname;
 	private String address;
-	public User(String mail, String firstname, String lastname, String address) {
+	private Boolean isactive=true;
+	
+	public User(String mail, String firstname, String lastname, String address,Boolean isactive) {
 		this.mail = mail;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.address = address;
+		this.isactive=isactive;
 	}
 	public User() {
 	}
@@ -39,17 +42,8 @@ public class User extends BaseEntity {
 	public String getAddress() {
 		return address;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-	public void setAddress(String address) {
-		this.address = address;
+	public Boolean getActive() {
+		return isactive;
 	}
 	
 

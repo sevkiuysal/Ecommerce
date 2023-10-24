@@ -13,6 +13,8 @@ import com.koylumuhendis.ecommerce.Commerce.exception.UserNotFoundException;
 import com.koylumuhendis.ecommerce.Commerce.model.User;
 import com.koylumuhendis.ecommerce.Commerce.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 
 
 @Service
@@ -38,17 +40,29 @@ public class UserService {
 	}
 
 	public UserDto createUser(CreateUserRequest createUserRequest) {
-		User user=new User(createUserRequest.getMail(),createUserRequest.getFirstname(),createUserRequest.getLastname(),createUserRequest.getAddress());
+		User user=new User(createUserRequest.getMail(),createUserRequest.getFirstname(),createUserRequest.getLastname(),createUserRequest.getAddress(),true);
 		return userDtoConverter.convert(userRepository.save(user));
 	}
 
+	@Transactional
+	public void updateUser(Long id,UpdateUserRequest updateUserRequest) {
+		findById(id);
+		userRepository.updateUser(id, updateUserRequest.getFirstname(), updateUserRequest.getLastname(), updateUserRequest.getAddress());
 
-	public UserDto updateUser(Long id,UpdateUserRequest updateUserRequest) {
-//		User user=userRepository.updateUser(id, updateUserRequest.getFirstname(), updateUserRequest.getLastname(), updateUserRequest.getAddress());
-//		return userDtoConverter.convert(user);
-		return null;
 	}
 	
+	public void deleteUser(Long id) {
+		findById(id);
+		userRepository.deleteById(id);
+		
+	}
+	
+	@Transactional
+	public void deactiveteUser(Long id) {
+		findById(id);
+		userRepository.deactiveteById(id);
+		
+	}
 	private User findById(Long id) {
 		return userRepository.findById(id)
 				.orElseThrow(()->
@@ -56,17 +70,7 @@ public class UserService {
 	}
 
 
-	public void deleteUser(Long id) {
-		userRepository.deleteById(id);
-		
-	}
-
-
-	public void deactiveUser(Long id) {
-//		userRepository.deactiveUser(id);
-		System.out.println("user deactive");
-		
-	}
+	
 }
 	
 
