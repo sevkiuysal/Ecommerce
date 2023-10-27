@@ -1,4 +1,4 @@
-package com.koylumuhendis.ecommerce.Commerce.model;
+package com.koylumuhendis.ecommerce.model;
 
 import java.time.LocalDateTime;
 

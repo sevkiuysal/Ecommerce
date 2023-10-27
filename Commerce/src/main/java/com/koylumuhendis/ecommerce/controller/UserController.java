@@ -1,4 +1,4 @@
-package com.koylumuhendis.ecommerce.Commerce.controller;
+package com.koylumuhendis.ecommerce.controller;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.koylumuhendis.ecommerce.Commerce.dto.CreateUserRequest;
-import com.koylumuhendis.ecommerce.Commerce.dto.UpdateUserRequest;
-import com.koylumuhendis.ecommerce.Commerce.dto.UserDto;
-import com.koylumuhendis.ecommerce.Commerce.service.UserService;
+import com.koylumuhendis.ecommerce.dto.CreateUserRequest;
+import com.koylumuhendis.ecommerce.dto.UpdateUserRequest;
+import com.koylumuhendis.ecommerce.dto.UserDto;
+import com.koylumuhendis.ecommerce.service.UserService;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -44,17 +44,14 @@ public class UserController {
 	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<UserDto> updateUser(
-			@PathVariable Long id,
+			@PathVariable("id") Long id,
 			@RequestBody UpdateUserRequest updateUserRequest){
-		
-		userService.updateUser(id,updateUserRequest);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok(userService.updateUser(id,updateUserRequest));
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id){
-		userService.deleteUser(id);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<String> deleteUser(@PathVariable("id") Long id){
+		return ResponseEntity.ok(userService.deleteUser(id));
 	}
 	@PatchMapping("/deactivete/{id}")
 	public ResponseEntity<Void> deactiveteUser(@PathVariable("id") Long id){

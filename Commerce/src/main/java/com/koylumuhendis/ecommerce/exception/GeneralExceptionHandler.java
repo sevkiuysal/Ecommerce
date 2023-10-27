@@ -1,4 +1,4 @@
-package com.koylumuhendis.ecommerce.Commerce.exception;
+package com.koylumuhendis.ecommerce.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

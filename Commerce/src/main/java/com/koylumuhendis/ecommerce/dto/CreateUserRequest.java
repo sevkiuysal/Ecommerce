@@ -1,4 +1,4 @@
-package com.koylumuhendis.ecommerce.Commerce.dto;
+package com.koylumuhendis.ecommerce.dto;
 
 
 

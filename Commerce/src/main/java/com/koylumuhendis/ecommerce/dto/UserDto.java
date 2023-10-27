@@ -1,4 +1,6 @@
-package com.koylumuhendis.ecommerce.Commerce.dto;
+package com.koylumuhendis.ecommerce.dto;
+
+import java.util.Objects;
 
 public class UserDto {
 
@@ -16,8 +18,12 @@ public class UserDto {
 		this.isactive = isactive;
 	}
 
+
+
 	public UserDto() {
 	}
+
+
 
 	public String getFirstname() {
 		return firstname;
@@ -34,5 +40,6 @@ public class UserDto {
 	public String getAddress() {
 		return address;
 	}
+
 
 }
