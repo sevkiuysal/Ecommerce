@@ -43,15 +43,17 @@ public class UserController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<UserDto> updateUser(
+	public ResponseEntity<Void> updateUser(
 			@PathVariable("id") Long id,
 			@RequestBody UpdateUserRequest updateUserRequest){
-		return ResponseEntity.ok(userService.updateUser(id,updateUserRequest));
+		userService.updateUser(id, updateUserRequest);
+		return ResponseEntity.ok().build();
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable("id") Long id){
-		return ResponseEntity.ok(userService.deleteUser(id));
+	public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id){
+		userService.deleteUser(id);
+		return ResponseEntity.ok().build();
 	}
 	@PatchMapping("/deactivete/{id}")
 	public ResponseEntity<Void> deactiveteUser(@PathVariable("id") Long id){

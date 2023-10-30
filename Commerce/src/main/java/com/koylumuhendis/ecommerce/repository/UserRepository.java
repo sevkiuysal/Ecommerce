@@ -23,9 +23,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 			+"SET isactive=false WHERE id=:id")
 	void deactiveteById(@Param("id")Long id);
 	
-	@Modifying
-	@Query("DELETE User\r\n"
-			+"WHERE id=:id")
-	Boolean userDeleteById(@Param("id")Long id);
+
 
 }

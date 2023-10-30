@@ -1,15 +1,10 @@
 package com.koylumuhendis.ecommerce.service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.koylumuhendis.ecommerce.dto.CreateUserRequest;
-import com.koylumuhendis.ecommerce.dto.UpdateUserRequest;
-import com.koylumuhendis.ecommerce.dto.UserDto;
-import com.koylumuhendis.ecommerce.dto.UserDtoConverter;
+import com.koylumuhendis.ecommerce.dto.*;
 import com.koylumuhendis.ecommerce.exception.UserNotFoundException;
 import com.koylumuhendis.ecommerce.model.User;
 import com.koylumuhendis.ecommerce.repository.UserRepository;
@@ -39,30 +34,29 @@ public class UserService {
 		return userDtoConverter.convert(user);
 	}
 
-	public UserDto createUser(CreateUserRequest createUserRequest) {
-		User user=new User(createUserRequest.getMail(),createUserRequest.getFirstname(),createUserRequest.getLastname(),createUserRequest.getAddress(),true);
+	public UserDto createUser(CreateUserRequest request) {
+		User user=new User.builder()
+				.mail(request.getMail())
+				.firstname(request.getFirstname())
+				.lastname(request.getLastname())
+				.address(request.getAddress())
+				.build();
 		return userDtoConverter.convert(userRepository.save(user));
 	}
 
 	@Transactional
-	public UserDto updateUser(Long id,UpdateUserRequest updateUserRequest) {
-		findUserById(id);
-		
+	public void updateUser(Long id,UpdateUserRequest updateUserRequest) {
 		userRepository.updateUser(
 				id, 
 				updateUserRequest.getFirstname(),
 				updateUserRequest.getLastname(),
 				updateUserRequest.getAddress());
-		return userDtoConverter.convert(findUserById(id));
+		
 	}
 	
 	@Transactional
-	public String deleteUser(Long id) {
-		findUserById(id);
-		if(userRepository.userDeleteById(id))
-			return String.format("User with ID= %d has been delete", id);
-		return String.format("User with ID= %d hasn't been delete", id);
-		
+	public void deleteUser(Long id) {
+		userRepository.deleteById(id);		
 	}
 	
 	@Transactional
@@ -74,7 +68,7 @@ public class UserService {
 	private User findUserById(Long id) {
 		return userRepository.findById(id)
 				.orElseThrow(()->
-				new UserNotFoundException("User couldn't be found by following id:"+id));
+				new UserNotFoundException());
 	}
 
 

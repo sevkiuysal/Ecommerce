@@ -1,5 +1,6 @@
 package com.koylumuhendis.ecommerce.controller;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -52,7 +53,10 @@ class UserControllerTest {
 	@Test
 	void itShouldGetUserbyId_WhenUserExist() throws Exception {
 		Long id = 1L;
-		UserDto expected = new UserDto("firstname", "lastname", "mail", "address", true);
+		UserDto expected = new UserDto.builder()
+				.firstname("firstname")
+				.lastname("lastname")
+				.build();
 		
 		when(userService.getUserById(id)).thenReturn(expected);
 		
@@ -68,8 +72,18 @@ class UserControllerTest {
 
 	@Test
 	void itShouldCreateUser_WhenGivenCreateUserRequest() throws Exception {
-		CreateUserRequest request = new CreateUserRequest("firstname", "lastname", "mail", "address");
-		UserDto expected = new UserDto("firstname", "lastname", "mail", "address", true);
+		CreateUserRequest request = new CreateUserRequest.builder()
+				.firstname("firstname")
+				.lastname("lastname")
+				.address("address")
+				.build();
+		UserDto expected = new UserDto.builder()
+				.firstname("firstname")
+				.lastname("lastname")
+				.address("address")
+				.mail("mail")
+				.isactive(true)
+				.build();
 		
 		when(userService.createUser(request)).thenReturn(expected);
 
@@ -84,10 +98,14 @@ class UserControllerTest {
 	@Test
 	void itShouldUpdateUser_WhenGivenUpdateUserRequest() throws Exception {
 		Long id=1L;
-		UpdateUserRequest request=new UpdateUserRequest("firstname", "lastname", "address");
-		UserDto response=new UserDto("firstname", "lastname", "mail", "address", true);
+		UpdateUserRequest request=new UpdateUserRequest.builder()
+				.firstname("firstname")
+				.lastname("lastname")
+				.address("address")
+				.build();
 		
-		when(userService.updateUser(id, request)).thenReturn(response);
+		
+		doNothing().when(userService).updateUser(id, request);
 		
 		mockMvc.perform(put(String.format("/v1/user/update/%d", id))
 				.contentType(MediaType.APPLICATION_JSON)
